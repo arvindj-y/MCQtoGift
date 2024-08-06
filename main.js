@@ -17,18 +17,9 @@ function generateQuestionBlocks() {
     const questionDiv = document.createElement("div");
     questionDiv.className = "question-container";
 
-    // Add remove button
-    const removeButton = document.createElement("button");
-    removeButton.type = "button";
-    removeButton.className = "remove-btn";
-    removeButton.textContent = "Remove";
-    removeButton.onclick = function () {
-      removeQuestion(removeButton);
-    };
-    questionDiv.appendChild(removeButton);
-
     // Add question fields
-    questionDiv.innerHTML += `
+    questionDiv.innerHTML = `
+            <button type="button" class="remove-btn" onclick="removeQuestion(this)">Remove</button>
             <label>Question ${i}:</label>
             <input type="text" name="question" placeholder="Enter the question">
             <input type="text" name="option1" placeholder="Option 1">
