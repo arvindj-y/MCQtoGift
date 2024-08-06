@@ -1,0 +1,7 @@
+::A product must have the quality of::{
+ ~Having a good design
+ =Having a good design
+ ~Having a good design
+ ~Correct
+ ####Feedback} 
+
