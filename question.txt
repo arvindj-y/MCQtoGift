@@ -1,4 +1,4 @@
-::A product must have the quality of::{
+A product must have the quality of{
  ~Having a good design
  =Having a good design
  ~Having a good design

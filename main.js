@@ -68,7 +68,7 @@ function generateGIFT() {
       correctOption >= 0 &&
       correctOption < options.length
     ) {
-      giftContent += `::${question}::{\n`;
+      giftContent += `${question}{\n`;
       options.forEach((option, index) => {
         giftContent += ` ${index === correctOption ? "=" : "~"}${option}\n`;
       });
