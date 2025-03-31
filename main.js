@@ -1,7 +1,5 @@
 function generateQuestionBlocks() {
-  const numQuestions = parseInt(
-    document.getElementById("numQuestions").value.trim()
-  );
+  const numQuestions = parseInt(document.getElementById("numQuestions").value.trim());
   const container = document.getElementById("questionsContainer");
 
   // Clear existing question blocks
@@ -45,40 +43,41 @@ function generateGIFT() {
   let giftContent = "";
 
   Array.from(containers).forEach((container) => {
-    const question = container
-      .querySelector('input[name="question"]')
-      .value.trim();
+    const question = container.querySelector('input[name="question"]').value.trim();
     const options = [
       container.querySelector('input[name="option1"]').value.trim(),
       container.querySelector('input[name="option2"]').value.trim(),
       container.querySelector('input[name="option3"]').value.trim(),
       container.querySelector('input[name="option4"]').value.trim(),
     ];
-    const correctOption =
-      parseInt(
-        container.querySelector('input[name="correctOption"]').value.trim()
-      ) - 1;
-    const feedback = container
-      .querySelector('textarea[name="feedback"]')
-      .value.trim();
+    const correctOption = parseInt(container.querySelector('input[name="correctOption"]').value.trim()) - 1;
+    const feedback = container.querySelector('textarea[name="feedback"]').value.trim();
 
-    if (
-      question &&
-      options.length &&
-      correctOption >= 0 &&
-      correctOption < options.length
-    ) {
-      giftContent += `${question}{\n`;
+    // Validate that question and options are provided and the correct option is within range
+    if (question && options.every(option => option) && correctOption >= 0 && correctOption < options.length) {
+      giftContent += `${question} {\n`;  // Start the question block
+
       options.forEach((option, index) => {
-        giftContent += ` ${index === correctOption ? "=" : "~"}${option}\n`;
+        // Format options: '=' for correct, '~' for incorrect
+        giftContent += `  ${index === correctOption ? "=" : "~"}${option}\n`;
       });
+
+      // Include feedback if provided
       if (feedback) {
-        giftContent += ` ${"####" + feedback + "} "}\n`;
+        giftContent += `  #### ${feedback}\n`;  // GIFT feedback
       }
-      giftContent += "\n";
+
+      giftContent += `}\n\n`;  // End the question block
     }
   });
 
+  // Check if the giftContent is empty (no valid questions were added)
+  if (!giftContent) {
+    alert("Please fill out all fields correctly.");
+    return;
+  }
+
+  // Create the GIFT file and trigger download
   const blob = new Blob([giftContent], { type: "text/plain" });
   const url = URL.createObjectURL(blob);
   const a = document.createElement("a");
